@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ComicController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,4 +16,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::prefix('dashboard')->group(function(){
+
+    Route::get('/', function () {
+        return view('dashboard.home');
+    })->name('dashboard.index');
+
+    Route::resource('comics', ComicController::class);
 });

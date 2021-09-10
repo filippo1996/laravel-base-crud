@@ -1,6 +1,9 @@
 @extends('templates.layout')
 @section('title', 'Comics '.$comic->title)
 @section('content')
+
+    {{ Breadcrumbs::render('comics.show', $comic) }}
+
     <div class="flex-md-equal w-100 my-md-3 ps-md-3">
         <div class="bg-light me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
         <div class="my-3 p-3">

@@ -13,7 +13,7 @@
     <!-- end header -->
 
     <!-- start content main -->
-    <main>@yield('content')</main>
+    <main class="container">@yield('content')</main>
     <!-- end content main -->
 
     <!-- start footer -->

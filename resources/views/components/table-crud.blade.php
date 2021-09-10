@@ -18,9 +18,14 @@
                 <td>{{ $item->price }} €</td>
                 <td><img style="width: 80px" src="{{ $item->thumb }}" alt="{{ $item->title }}"></td>
                 <td>
-                    <a href=" {{ route('comics.show', $item->id) }} " class="btn btn-primary">Show</a>
-                    <a href="#" class="btn btn-secondary">Edit</a>
-                    <a href="#" class="btn btn-danger">Destroy</a>
+                    <a href="{{ route('comics.show', $item->id) }}" class="btn btn-primary">Show</a>
+                    <a href="{{ route('comics.edit', $item->id) }}" class="btn btn-secondary">Edit</a>
+
+                    <form action="{{ route('comics.destroy', $item->id) }}" method="post" class="d-inline-block">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Destroy</button>
+                    </form>
 
                 </td>
             </tr>

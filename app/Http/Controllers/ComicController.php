@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Comic;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class ComicController extends Controller
 {
@@ -14,8 +15,12 @@ class ComicController extends Controller
      */
     public function index()
     {
-        $comics = Comic::all();
-        return view('dashboard.comics.index', compact('comics'));
+        $comics = Comic::orderBy('id', 'desc')->get();
+        $count = $comics->count();
+        //$comics = Comic::orderBy('id')->cursorPaginate(5);
+        //dd($comics,$comics->previousPageUrl(), $comics->nextPageUrl());
+        //dd(view('dashboard.comics.index', compact('comics'))->render());
+        return view('dashboard.comics.index', compact('comics', 'count'));
     }
 
     /**
@@ -25,7 +30,7 @@ class ComicController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.comics.create');
     }
 
     /**
@@ -36,7 +41,18 @@ class ComicController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $info = [
+            'message' => 'Prodotto creato con successo',
+            'status' => 'success'
+        ];
+
+        $data = $request->all();
+        $comic = new Comic();
+        $comic->fill($data);
+        $comic->save();
+
+        Session::flash('alert-message', $info);
+        return redirect()->route('comics.show', $comic->id);
     }
 
     /**
@@ -58,7 +74,7 @@ class ComicController extends Controller
      */
     public function edit(Comic $comic)
     {
-        //
+        return view('dashboard.comics.edit', compact('comic'));
     }
 
     /**
@@ -70,7 +86,16 @@ class ComicController extends Controller
      */
     public function update(Request $request, Comic $comic)
     {
-        //
+        $info = [
+            'message' => 'Prodotto aggiornato con successo',
+            'status' => 'success'
+        ];
+
+        $data = $request->all();
+        $comic->update($data);
+
+        Session::flash('alert-message', $info);
+        return redirect()->route('comics.show', $comic->id);
     }
 
     /**
@@ -81,6 +106,14 @@ class ComicController extends Controller
      */
     public function destroy(Comic $comic)
     {
-        //
+        $info = [
+            'message' => 'Prodotto eliminato con successo',
+            'status' => 'success'
+        ];
+
+        $comic->delete();
+
+        Session::flash('alert-message', $info);
+        return redirect()->route('comics.index');
     }
 }

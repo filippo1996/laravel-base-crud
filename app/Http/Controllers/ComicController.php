@@ -104,14 +104,20 @@ class ComicController extends Controller
      * @param  \App\Models\Comic  $comic
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Comic $comic)
+    public function destroy(Request $request, Comic $comic)
     {
+        $res = $comic->delete();
+
         $info = [
-            'message' => 'Prodotto eliminato con successo',
-            'status' => 'success'
+            'message' => $res ? 'Prodotto eliminato con successo' : 'Problema aliminazione prodotto',
+            'status' => $res,
         ];
 
-        $comic->delete();
+        // controllo richiesta fatta con ajax
+        if($request->expectsJson()){
+            $info['render'] = $this->index()->render();
+            return $info;
+        }
 
         Session::flash('alert-message', $info);
         return redirect()->route('comics.index');

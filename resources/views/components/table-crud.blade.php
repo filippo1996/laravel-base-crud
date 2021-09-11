@@ -12,7 +12,7 @@
         <tbody>
 
         @foreach($items as $item)
-            <tr>
+            <tr id="comics-{{ $item->id }}">
                 <th scope="row">{{ $item->id }}</th>
                 <td>{{ $item->title }}</td>
                 <td>{{ $item->price }} €</td>

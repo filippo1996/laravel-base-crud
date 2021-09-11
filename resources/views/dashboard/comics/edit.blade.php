@@ -17,7 +17,7 @@
     </div>
     <div class="mb-3">
       <label class="form-label" for="price">Price</label>
-      <input type="number" class="form-control" name="price" value="{{ $comic->price }}" id="price" min="0" max="200" required>
+      <input type="number" class="form-control" name="price" value="{{ $comic->price }}" id="price" step="0.01" min="0" max="200" required>
     </div>
     <div class="mb-3">
         <label for="series" class="form-label">Series</label>

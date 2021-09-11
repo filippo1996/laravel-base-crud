@@ -19,5 +19,16 @@
     <!-- start footer -->
     @include('partials.footer')
     <!-- end footer -->
+
+    <!-- start script footer -->
+    @section('script-footer')
+<!--
+    <script>
+        alert('script principale');
+    </script>
+-->
+    
+        @show
+    <!-- end script footer -->
 </body>
 </html>
